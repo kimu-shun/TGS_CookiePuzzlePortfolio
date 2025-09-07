@@ -297,21 +297,6 @@ public class PlayerControllManager : MonoBehaviour
             _isGoal = true;
 
         }
-        //else if (!_isDead && !_isClear)
-        //{
-        //    // 重力計算
-        //    if (!_isGround)
-        //    {
-        //        _currentGravityForce = Mathf.Clamp(_currentGravityForce + _gravityAcceleration * Time.deltaTime, _normalGravityForce, _maxGravityForce);
-        //        _playerRb.AddForce(new Vector2(0, _currentGravityForce * -1), ForceMode2D.Force);
-        //    }
-        //    else
-        //    {
-        //        // 地面にいるときは通常重力
-        //        _currentGravityForce = _normalGravityForce;
-        //    }
-        //}
-        // FixedUpdate の重力適用部分をこのようにガード
 
         // 2025/08/22 16:00 菅原が変更
         else if (!_isDead && !_isClear)
@@ -470,41 +455,6 @@ public class PlayerControllManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(ViewGameOver());
-
-        // 上に上げる（アニメーション開始）
-        //var playerCollider = GetComponent<BoxCollider2D>();
-        //playerCollider.isTrigger = true;
-
-        // 少し上に跳ねさせて（インパルス）下に落とす（水に隠れるくらいまで）
-        // バタバタアニメーション開始
-        //_playerRb.AddForce(transform.up * 3f, ForceMode2D.Impulse);
-        //_playerRb.gravityScale = 0.8f;
-        // 水に沈むまで待つ
-        //yield return new WaitUntil(() => transform.position.y < hitPos.y - 0.7f);
-        // もう一度上に跳ねさせる
-        //_playerRb.velocity = Vector2.zero;
-        //_playerRb.AddForce(transform.up * 4.5f, ForceMode2D.Impulse);
-
-        // ある高さまで行ったらアニメーションを止める
-        /*float _animStopPos = hitPos.y + 2f;
-        yield return new WaitUntil(() => _playerRb.velocity.y <= 0f);*/
-
-
-
-        /*        yield return new WaitUntil(() => transform.position.y < hitPos.y - 0.5f);
-        */
-        /*_playerRb.gravityScale = 0f;
-        _playerRb.velocity = Vector2.zero;*/
-
-
-
-
-
-
-
-        // 上下にゆらゆら揺れる処理をコルーチンで実行
-        //yield return StartCoroutine(WaterFloatRoutine(3));
-        // 隠れたらゲームオーバーUIを表示
     }
 
     private IEnumerator TogeDeath()
@@ -623,26 +573,6 @@ public class PlayerControllManager : MonoBehaviour
     // ブロックを消すボタン
     public void OnBlockDestroy(InputAction.CallbackContext callbackContext)
     {
-        //if (_transitionManager._canGamePlay)
-        //{
-        //    if (callbackContext.started && _isGround && !_isStageMode && !_haveWaffle)
-        //    {
-        //        // ボタンを押し始めた瞬間
-        //        _fillCircle.gameObject.SetActive(true);
-        //        _isPressing = true;
-        //        _fillCircle.fillAmount = 0;
-        //        _buttonHoldTime = 0f;
-        //    }
-        //    else if (callbackContext.canceled)
-        //    {
-        //        // ボタンを離した瞬間
-        //        _isPressing = false;
-        //        _fillCircle.fillAmount = 0;
-        //        _buttonHoldTime = 0f;
-        //    }
-        //}
-
-        // 2025/08/22 16:00 菅原が変更
         if (!CanGameplay) return;
 
         if (callbackContext.started && _isGround && !_isStageMode && !_haveWaffle)
@@ -693,25 +623,6 @@ public class PlayerControllManager : MonoBehaviour
     // ブロックを置ける場所を表示する
     public void OnPutPosView(InputAction.CallbackContext callbackContext)
     {
-        //if (_transitionManager._canGamePlay)
-        //{
-        //    if (callbackContext.performed && !_isDead && !_isPause && !_isStageMode)
-        //    {
-        //        if (!_isClear && _haveWaffle)
-        //        {
-        //            Debug.Log("ブロック配置場所表示");
-        //            _blockPutManager.BlockPutPosView(_viewPutObj);
-        //            _isView = true;
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        //Debug.Log("ブロック配置場所非表示");
-        //    }
-        //}
-
-        // 2025/08/22 16:00 菅原が変更
         if (!CanGameplay) return;
 
         if (callbackContext.performed && !_isDead && !_isPause && !_isStageMode)
@@ -734,51 +645,6 @@ public class PlayerControllManager : MonoBehaviour
     // 2025/05/02 11:03 菅原が変更
     public void OnModeChage(InputAction.CallbackContext callbackContext)
     {
-        //if(_transitionManager._canGamePlay)
-        //{
-        //    // モード変更ボタンが押されたときの処理
-        //    if (callbackContext.performed && _isGround && !_changeCamMode && !_isDead && !_isClear)
-        //    {
-        //        _isStageMode = !_isStageMode;
-        //        tilemapMover.isTilemapControlMode = !_isStageMode;
-        //        playerSoundManager.ModeChangeSe();
-
-        //        if (!_isStageMode)
-        //        {
-        //            _charModeUIAnim.SetBool("isCharMode", false);
-        //            Debug.Log("キャラモードのUIがステージになる");
-        //            if (!_firstHaveCookie)
-        //            {
-        //                _hintOverhead.gameObject.SetActive(false);
-        //                _stageGrid.gameObject.SetActive(false);
-        //            }
-        //            else
-        //            {
-        //                _hintOverhead.gameObject.SetActive(true);
-        //            }
-
-        //        }
-        //        else
-        //        {
-        //            // キャラモードのアニメーションを動かすステージが見えるようにする
-        //            _charModeUIAnim.SetBool("isCharMode", true);
-        //            Debug.Log("キャラモードのUIがキャラモードになる");
-        //            _hintOverhead.gameObject.SetActive(false);
-
-        //        }
-        //        _playerRb.velocity = Vector3.zero;
-
-        //        StartCoroutine(ChangeCameraMode());
-        //        if (!_firstModeChage)
-        //        {
-        //            _firstModeChage = true;
-        //        }
-        //        Debug.Log(_isStageMode ? "ステージ操作モード" : "プレイヤー操作モード");
-
-        //    }
-        //}
-
-        // 2025/08/22 16:00 菅原が変更
         if (!CanGameplay) return;
 
         // モード変更ボタンが押されたときの処理
@@ -825,26 +691,6 @@ public class PlayerControllManager : MonoBehaviour
 
     public void OnMenuView(InputAction.CallbackContext callbackContext)
     {
-        //if (_transitionManager._canGamePlay)
-        //{
-        //    if (callbackContext.performed)
-        //    {
-        //        if (!_menuUI.activeSelf)
-        //        {
-        //            _isPause = true;
-        //            _menuUI.SetActive(true);
-        //            Time.timeScale = 1f;
-        //        }
-        //        else
-        //        {
-        //            _isPause = false;
-        //            _menuUI.SetActive(false);
-        //            Time.timeScale = 1f;
-        //        }
-        //    }
-        //}
-
-        // 2025/08/22 16:00 菅原が変更
         if (!CanGameplay) return;
 
         if (callbackContext.performed)

@@ -116,7 +116,6 @@ public class LoadingTipsManager : MonoBehaviour
         {
             if (context.performed)
             {
-                // ���J���Ă���y�[�W�ȊO�����
                 _mainAudio.clip = _decidSE;
                 _mainAudio.Play(); 
                 HidePage(_currentPageNum);
@@ -129,7 +128,6 @@ public class LoadingTipsManager : MonoBehaviour
     {
         if(_currentPageNum == _maxPageNum &&  _minPageNum == _currentPageNum)
         {
-            // �E���A����������
             _pageAllowRight.SetActive(false);
             _pageAllowLeft.SetActive(false);
             if (!_startButton.activeSelf)
@@ -140,7 +138,6 @@ public class LoadingTipsManager : MonoBehaviour
         }
         else if(_currentPageNum == _maxPageNum)
         {
-            // �E��������
             _pageAllowRight.SetActive(false);
             _pageAllowLeft.SetActive(true);
             if (!_startButton.activeSelf)
@@ -151,7 +148,6 @@ public class LoadingTipsManager : MonoBehaviour
         }
         else if( _currentPageNum == _minPageNum)
         {
-            // ����������
             _pageAllowRight.SetActive(true);
             _pageAllowLeft.SetActive(false);
         }
